@@ -28,6 +28,6 @@ model Post {
   subtitle String
   userId Int
   tags String
-  imgUrl Bytes
+  imgUrl Bytes?
   author User @relation(fields: [userId], references: [id])
 }

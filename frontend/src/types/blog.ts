@@ -1,17 +1,11 @@
 export interface Post {
-  id: string;
+  id: number; 
   title: string;
-  excerpt: string;
+  subtitle: string;
   content: string;
-  coverImage: string;
-  author: {
-    name: string;
-    avatar: string;
-  };
-  publishedAt: string;
-  readTime: number;
-  tags: string[];
-}
+  tags: string;
+  createdAt: string;
+};
 
 export interface NewPost {
   title: string;

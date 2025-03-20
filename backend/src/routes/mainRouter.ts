@@ -16,30 +16,38 @@ mainRouter.get('/users', async (req, res)=>{
 })
 
 mainRouter.get('/posts', async (req, res)=>{
-    const listPosts = await getAllPosts();
-    res.json({listPosts})
+    const posts = await getAllPosts();
+    res.json(posts)
 })
 
-mainRouter.post('/post/create',upload.single('imgUrl'), async (req: Request, res: Response)=>{
-
-    if(!req.body.title || !req.body.content || !req.body.subtitle || !req.body.tags){
-         res.status(400).json({error: 'Campos obrigatórios não preenchidos'})
+mainRouter.post('/post/create', upload.single('imgUrl'), async (req: Request, res: Response) => {
+    
+    if (!req.body.title || !req.body.content || !req.body.subtitle || !req.body.tags) {
+        res.status(400).json({ error: 'Campos obrigatórios não preenchidos' }); 
+        return; 
     }
 
-    try{
+    try {
         const file = req.file as MulterFile;
         const imgUrl = file ? file.buffer : null;
-        const {title, content, subtitle, tags} = req.body;
+        console.log(imgUrl);
+        const { title, content, subtitle, tags } = req.body;
 
-        const post = await createPost({title, content, subtitle, tags, imgUrl, author:{connect:{id: 1}}});
+        const post = await createPost({
+            title,
+            content,
+            subtitle,
+            tags,
+            imgUrl,
+            author: { connect: { id: 1 } },
+        });
 
-        res.json({ success: true, post });
+        res.json({ success: true, post }); 
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao criar post' }); 
     }
-    catch(error){
-         res.status(500).json({error: 'Error ao criar post'})
-    }
+});
 
-})
 
 mainRouter.put("/post/update/:id", async (req, res) => {
     const { id } = req.params;

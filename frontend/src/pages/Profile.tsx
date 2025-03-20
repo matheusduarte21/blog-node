@@ -1,35 +1,27 @@
-import React from 'react';
-import { UserPosts } from '../components/UserPosts';
-import { Post } from '../types/blog';
+import React, { useEffect, useState } from 'react';
+import { DeletePost, PostList } from '../services/Post.ts';
+import UserPosts from '../components/UserPosts';
+import { Post } from  '../types/blog.ts';
 
-const USER_POSTS: Post[] = [
-  {
-    id: '1',
-    title: 'Building Modern Web Applications with React and TypeScript',
-    excerpt: 'Learn how to leverage the power of React and TypeScript to build scalable web applications with modern best practices.',
-    content: '',
-    coverImage: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80&w=1000',
-    author: {
-      name: 'John Doe',
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100',
-    },
-    publishedAt: 'March 15, 2024',
-    readTime: 8,
-    tags: ['React', 'TypeScript', 'Web Development'],
-  },
-  // Add more mock posts as needed
-];
+// const USER_POSTS: Post[] = [
+//   {
+//     id: '1',
+//     title: 'Building Modern Web Applications with React and TypeScript',
+//     excerpt: 'Learn how to leverage the power of React and TypeScript to build scalable web applications with modern best practices.',
+//     content: '',
+//     coverImage: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80&w=1000',
+//     author: {
+//       name: 'John Doe',
+//       avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100',
+//     },
+//     publishedAt: 'March 15, 2024',
+//     readTime: 8,
+//     tags: ['React', 'TypeScript', 'Web Development'],
+//   },
+//   // Add more mock posts as needed
+// ];
 
-export function Profile() {
-  const handleEditPost = (post: Post) => {
-    // Here you'll integrate with your backend API
-    console.log('Editing post:', post);
-  };
-
-  const handleDeletePost = (postId: string) => {
-    // Here you'll integrate with your backend API
-    console.log('Deleting post:', postId);
-  };
+export const Profile = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -63,9 +55,6 @@ export function Profile() {
           </a>
         </div>
         <UserPosts
-          posts={USER_POSTS}
-          onEdit={handleEditPost}
-          onDelete={handleDeletePost}
         />
       </div>
     </div>

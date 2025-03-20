@@ -21,9 +21,6 @@ export function Header() {
             </button>
             <div className="hidden lg:flex items-center space-x-8 ml-8">
               <Link to="/" className="text-gray-900 hover:text-gray-600">Home</Link>
-              <Link to="/articles" className="text-gray-500 hover:text-gray-900">Articles</Link>
-              <Link to="/categories" className="text-gray-500 hover:text-gray-900">Categories</Link>
-              <Link to="/about" className="text-gray-500 hover:text-gray-900">About</Link>
             </div>
           </div>
           
@@ -57,12 +54,6 @@ export function Header() {
                   className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Your Profile
-                </button>
-                <button
-                  onClick={() => handleNavigation('/profile/posts')}
-                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  Your Posts
                 </button>
                 <button
                   onClick={() => handleNavigation('/posts/new')}
