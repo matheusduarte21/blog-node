@@ -4,10 +4,11 @@ export const PostCreate = async (formData: FormData) => {
       const response = await fetch("http://localhost:3000/post/create", {
         method: "POST",
         body: formData,
+        credentials: "include", 
       });
   
       if (!response.ok) {
-        throw new Error(`Erro: ${response.statusText}`);
+        throw new Error(`${response.statusText}`);
       }
   
       return await response.json();
@@ -19,8 +20,9 @@ export const PostCreate = async (formData: FormData) => {
 
 export const PostList = async () => {
     try {
-        const response = await fetch("http://localhost:3000/posts",{
+        const response = await fetch("http://localhost:3000/posts/my-posts",{
             method: "GET",
+            credentials: 'include'
         });
 
         if (!response.ok) {
@@ -38,6 +40,7 @@ export const DeletePost = async (id: string) => {
     try {
         const response = await fetch(`http://localhost:3000/post/delete/${id}`, {
         method: "DELETE",
+        credentials: 'include'
         });
     
         if (!response.ok) {

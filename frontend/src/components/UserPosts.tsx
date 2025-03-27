@@ -25,7 +25,7 @@ export const UserPosts = () => {
 
   const onDelete = async (postId: string) => {
     try{
-      const response = await DeletePost(postId);
+      await DeletePost(postId);
       setAllPosts((prevPosts) => prevPosts.filter((post) => post.id !== Number(postId)));
     }
     catch(error){

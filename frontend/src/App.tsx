@@ -1,11 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Header } from './components/Header';
 import { FeaturedPost } from './components/FeaturedPost';
 import { PostCard } from './components/PostCard';
 import { CreatePost } from './pages/CreatePost';
 import { Profile } from './pages/Profile';
 import { Post } from './types/blog';
+import Login from './components/login';
+import Signup from './components/signUp';
 
 const MOCK_POSTS: Post[] = [
   {
@@ -66,21 +70,33 @@ function HomePage() {
   );
 }
 
+
+function Layout() {
+  const location = useLocation();
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {location.pathname !== '/login' && location.pathname !== '/signup' && <Header />}
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/posts/new" element={<CreatePost />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/posts" element={<Profile />} />
+        <Route path="/articles" element={<HomePage />} />
+        <Route path="/categories" element={<HomePage />} />
+        <Route path="/about" element={<HomePage />} />
+      </Routes>
+    </div>
+  );
+}
+
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50">
-        <Header />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/posts/new" element={<CreatePost />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/profile/posts" element={<Profile />} />
-          <Route path="/articles" element={<HomePage />} />
-          <Route path="/categories" element={<HomePage />} />
-          <Route path="/about" element={<HomePage />} />
-        </Routes>
-      </div>
+      <ToastContainer />
+      <Layout />
     </Router>
   );
 }

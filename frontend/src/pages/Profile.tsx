@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { DeletePost, PostList } from '../services/Post.ts';
-import UserPosts from '../components/UserPosts';
-import { Post } from  '../types/blog.ts';
+import  { useEffect, useState } from 'react';
 
-// const USER_POSTS: Post[] = [
-//   {
-//     id: '1',
-//     title: 'Building Modern Web Applications with React and TypeScript',
-//     excerpt: 'Learn how to leverage the power of React and TypeScript to build scalable web applications with modern best practices.',
-//     content: '',
-//     coverImage: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80&w=1000',
-//     author: {
-//       name: 'John Doe',
-//       avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100',
-//     },
-//     publishedAt: 'March 15, 2024',
-//     readTime: 8,
-//     tags: ['React', 'TypeScript', 'Web Development'],
-//   },
-//   // Add more mock posts as needed
-// ];
+import UserPosts from '../components/UserPosts';
+import { currentUser } from '../services/User';
+import { Link } from 'react-router-dom';
+
+type User = {
+  name: string;
+  email: string;
+};
 
 export const Profile = () => {
+
+  const [user, setUser] = useState<User>()
+
+  useEffect(() => {
+    currentUser().then(setUser)
+  }, []);
+
+  if (!user) return <p>Carregando...</p>;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -33,13 +29,13 @@ export const Profile = () => {
       <div className="bg-white rounded-lg shadow-md p-6 mb-8">
         <div className="flex items-center space-x-4">
           <img
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100"
+            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fbr.freepik.com%2Fvetores-premium%2Filustracao-em-vetor-de-icone-de-perfil-de-usuario-masculino-padrao_34470155.htm&psig=AOvVaw2DDtZCCXHO-IeeHn_p7YCd&ust=1743007246413000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCKDJ1pHWpYwDFQAAAAAdAAAAABAJ"
             alt="Profile"
             className="w-16 h-16 rounded-full"
           />
           <div>
-            <h2 className="text-xl font-semibold text-gray-900">John Doe</h2>
-            <p className="text-gray-600">john.doe@example.com</p>
+            <h2 className="text-xl font-semibold text-gray-900">{user.name}</h2>
+            <p className="text-gray-600">{user.email}</p>
           </div>
         </div>
       </div>
@@ -47,12 +43,8 @@ export const Profile = () => {
       <div className="mb-8">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-900">Your Posts</h2>
-          <a
-            href="/posts/new"
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-          >
-            Create New Post
-          </a>
+          <Link to="/posts/new" className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">Create New Post
+          </Link>
         </div>
         <UserPosts
         />
